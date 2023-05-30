@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:netflix_clone/model/movie_model.dart';
 import 'package:netflix_clone/view/widget/box_slider.dart';
@@ -12,46 +13,59 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  List<MovieModel> movies = [
-    MovieModel.fromMap({
-      'title': "사랑의 불시착",
-      "keyword": '사랑/판타지/로맨스',
-      "poster": 'test_movie_1.png',
-      'like': false
-    }),
-    MovieModel.fromMap({
-      'title': "사랑의 불시착",
-      "keyword": '사랑/판타지/로맨스',
-      "poster": 'test_movie_1.png',
-      'like': false
-    }),
-    MovieModel.fromMap({
-      'title': "사랑의 불시착",
-      "keyword": '사랑/판타지/로맨스',
-      "poster": 'test_movie_1.png',
-      'like': false
-    }),
-    MovieModel.fromMap({
-      'title': "사랑의 불시착",
-      "keyword": '사랑/판타지/로맨스',
-      "poster": 'test_movie_1.png',
-      'like': false
-    }),
-  ];
+  FirebaseFirestore firestore = FirebaseFirestore.instance;
+  // late List<MovieModel> movies;
+
+  // List<MovieModel> movies = [];
+
+  Future<List<MovieModel>> readData() async {
+    var res = await firestore.collection('movie').get();
+    var result = res.docs
+        .map(
+          (e) => MovieModel.fromMap(
+            Map<String, dynamic>.from(
+              e.data(),
+            ),
+          ),
+        )
+        .toList();
+    return result;
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    readData();
+  }
 
   @override
   Widget build(BuildContext context) {
-    return ListView(
-      children: [
-        Stack(
-          children: [
-            CarouselSliderWidget(movies: movies),
-            const TapBar(),
-          ],
-        ),
-        CircleSlider(movies: movies),
-        BoxSlider(movies: movies),
-      ],
+    return FutureBuilder(
+      future: readData(),
+      builder: (context, snapshot) {
+        if (snapshot.hasData) {
+          return ListView(
+            children: [
+              Stack(
+                children: [
+                  CarouselSliderWidget(
+                    movies: snapshot.data!,
+                    firestore: firestore,
+                  ),
+                  const TapBar(),
+                ],
+              ),
+              CircleSlider(
+                movies: snapshot.data!,
+              ),
+              BoxSlider(
+                movies: snapshot.data!,
+              ),
+            ],
+          );
+        }
+        return const CircularProgressIndicator();
+      },
     );
   }
 }

@@ -1,4 +1,5 @@
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:netflix_clone/model/movie_model.dart';
 import 'package:netflix_clone/view/screen/detail_screen.dart';
@@ -7,8 +8,10 @@ class CarouselSliderWidget extends StatefulWidget {
   const CarouselSliderWidget({
     super.key,
     required this.movies,
+    required this.firestore,
   });
   final List<MovieModel> movies;
+  final FirebaseFirestore firestore;
 
   @override
   State<CarouselSliderWidget> createState() => _MyWidgetState();
@@ -27,8 +30,7 @@ class _MyWidgetState extends State<CarouselSliderWidget> {
     super.initState();
 
     movies = widget.movies;
-    images =
-        movies.map((e) => Image.asset("assets/images/${e.poster}")).toList();
+    images = movies.map((e) => Image.network(e.poster)).toList();
     keywords = movies.map((e) => e.keyword).toList();
     likes = movies.map((e) => e.like).toList();
     _currentKeyword = keywords[0];

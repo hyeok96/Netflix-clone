@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:netflix_clone/view/screen/homeScreen.dart';
 import 'package:netflix_clone/view/screen/more_screen.dart';
+import 'package:netflix_clone/view/screen/search_screen.dart';
 
 import '../widget/BottomBar.dart';
 
@@ -17,11 +18,7 @@ class MainScreen extends StatelessWidget {
           physics: const NeverScrollableScrollPhysics(),
           children: [
             const HomeScreen(),
-            Container(
-              child: const Center(
-                child: Text("search"),
-              ),
-            ),
+            const SearchScreen(),
             Container(
               child: const Center(
                 child: Text("save"),

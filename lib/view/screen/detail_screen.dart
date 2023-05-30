@@ -36,8 +36,7 @@ class _DetailScreenState extends State<DetailScreen> {
                     width: double.maxFinite,
                     decoration: BoxDecoration(
                       image: DecorationImage(
-                        image:
-                            AssetImage('assets/images/${widget.movie.poster}'),
+                        image: NetworkImage(widget.movie.poster),
                         fit: BoxFit.cover,
                       ),
                     ),
@@ -54,8 +53,7 @@ class _DetailScreenState extends State<DetailScreen> {
                                   height: 300,
                                   padding:
                                       const EdgeInsets.fromLTRB(0, 45, 0, 10),
-                                  child: Image.asset(
-                                      "assets/images/${widget.movie.poster}"),
+                                  child: Image.network(widget.movie.poster),
                                 ),
                                 Container(
                                   padding: const EdgeInsets.all(7),

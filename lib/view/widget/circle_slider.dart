@@ -47,7 +47,7 @@ List<Widget> makeCircleImages(BuildContext context, List<MovieModel> movies) {
           padding: const EdgeInsets.only(right: 10),
           child: Align(
             child: CircleAvatar(
-              backgroundImage: AssetImage("assets/images/${movies[i].poster}"),
+              backgroundImage: NetworkImage(movies[i].poster),
               radius: 48,
             ),
           ),
