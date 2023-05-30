@@ -14,9 +14,6 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   FirebaseFirestore firestore = FirebaseFirestore.instance;
-  // late List<MovieModel> movies;
-
-  // List<MovieModel> movies = [];
 
   Future<List<MovieModel>> readData() async {
     var res = await firestore.collection('movie').get();

@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:netflix_clone/view/screen/detail_screen.dart';
 
 import '../../model/movie_model.dart';
 
@@ -159,7 +160,12 @@ class _SearchScreenState extends State<SearchScreen> {
                     ),
                     itemBuilder: (context, index) {
                       return InkWell(
-                        onTap: () {},
+                        onTap: () {
+                          Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) =>
+                                DetailScreen(movie: snapshot.data![index]),
+                          ));
+                        },
                         child: Image.network(
                           snapshot.data![index].poster,
                           fit: BoxFit.cover,
