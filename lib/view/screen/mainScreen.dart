@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:netflix_clone/view/screen/homeScreen.dart';
+import 'package:netflix_clone/view/screen/more_screen.dart';
 
 import '../widget/BottomBar.dart';
 
@@ -26,11 +27,7 @@ class MainScreen extends StatelessWidget {
                 child: Text("save"),
               ),
             ),
-            Container(
-              child: const Center(
-                child: Text("list"),
-              ),
-            ),
+            const MoreScreen(),
           ],
         ),
         bottomNavigationBar: const BottomBar(),
